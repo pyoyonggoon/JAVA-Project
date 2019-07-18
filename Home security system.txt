@@ -1,0 +1,122 @@
+const int EchoPin = 3;          // AduinoªÎ3ÛãpinªËªÄªÊª°
+const int TrigPin = 2;          //2Ûãpin
+const int gasPin = A1 ;         //gas«»«ó«µ?ªò A1ªËªÄªÊª°
+int GreenLED = 8;
+int RedLED = 9;
+int YellowLED = 10;
+int BlueLED = 11;
+int SpeakerPin = 12;
+
+unsigned long pulse = 0;          //PM2.5
+float ugm3 = 0;
+
+void setup(){
+  Serial.begin(9600); //Serial portªòËÒª±ªÆ,?áêáÜÓøªò 9600 bpsªÇÞÅª¤
+  pinMode(EchoPin, INPUT);
+  pinMode(TrigPin, OUTPUT);
+  pinMode(7,INPUT);
+  pinMode(8, OUTPUT);
+  pinMode(9, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+ }
+
+void loop(){
+  long duration, val;
+  
+  digitalWrite(TrigPin, LOW);
+  delayMicroseconds(2);¡¡//¡¡£²õ©ªÀª±ªË¡¢?æÅªµª»ªë
+  digitalWrite(TrigPin, HIGH);
+  delayMicroseconds(5);¡¡//¡¡5õ©ªÀª±ªË¡¢?æÅªµª»ªë
+  digitalWrite(TrigPin, LOW);
+  
+  duration = pulseIn(EchoPin, HIGH);
+  
+  digitalWrite(11, LOW);
+  digitalWrite(10, LOW);
+  digitalWrite(9, LOW);
+  
+  val = microsecondsToCentimeters(duration);
+  //õ±ëå÷î«»«ó«µ?ª«ªé?ªß?ªóªÀ?ö·ªòcmªÇ?ª¨ªÆvalªÇ save 
+  
+    if(val > 25){ //value ?ö·ª¬ 15cm ªèªêêÀª«ªÃª¿ªé¡¡îïªÆªÎledª¬off
+      digitalWrite(11,LOW);
+      digitalWrite(10,LOW);
+      digitalWrite(9,LOW);
+      Serial.println("[Safety]");
+    }
+    else if(val >= 15 && val <= 25){ // 15 ~ 25 cm Ûô??ªËª¤ªëªÈª­ªÏ11Ûãledª¬ on £¨check)
+      digitalWrite(11,HIGH);
+      digitalWrite(10,LOW);
+      digitalWrite(9,LOW);
+      Serial.println("[Safety]");
+    }
+    else if(val >= 8 && val < 15){
+      digitalWrite(11,HIGH);
+      digitalWrite(10,HIGH);
+      digitalWrite(9,LOW);
+      Serial.println("[Be careful]");
+      Serial.print("Value =");
+      Serial.print(val);
+      Serial.print("cm");
+      Serial.println();   tone(12, 3000, 500);//5000HzªÎëåªò3õ©(3000£©ªÇªë¡£
+      delay(1000);
+    } 
+    else{                    // 8cmì¤ù»ªÎÛô??ªËª¤ªëªÈª­ªÏªÈª­¡¡10õ©ì¤ß¾ªÈªÉªàªÈledªÈÌíÛÁëåª¬ªÇªë
+      for(int i=0;i<11;i++){
+        if(i==10){
+          for(int j=0;j<=20;j++){
+            digitalWrite(11,HIGH);
+            digitalWrite(10,HIGH);
+            digitalWrite(9,HIGH);
+            Serial.println("[Danger]");
+            Serial.print("Value =");
+            Serial.print(val);
+            Serial.print("cm");
+             Serial.println();tone(12, 1000, 300);
+            delay(600);
+                if(j==20){
+                      break;
+                }
+            }
+        }
+      delay(500); 
+     }
+  }
+  
+  int value;
+  value = analogRead(A0);
+  float temp = (5.0*value*100)/1024;
+  
+    if(temp > 60){ // ?Óøª¬£¶£°Óøì¤ß¾ß¾ª¬ªÃª¿ªé led on
+      digitalWrite(8,HIGH);
+      Serial.println();tone(12, 5000, 600);
+      }
+    else{
+      digitalWrite(8,LOW);
+      }
+  
+  int GasValue; 
+    if (GasValue >= 500){ 
+        for(int k=0;k<=20;k++){     //«Ô«Ý«Ô«ÝªÎëå
+            digitalWrite(8,HIGH);
+            Serial.println();tone(12, 1000, 200);
+            delay(600);
+                if(k==20){
+                      break;
+                }
+            }
+      }
+    else{
+      digitalWrite(8, LOW); 
+      }
+      Serial.print("GasValue = "); 
+      Serial.println(GasValue);
+    delay(1000);
+ 
+ } // Void loop
+
+long microsecondsToCentimeters(long microseconds)
+{
+  return microseconds / 29/ 2;
+}
