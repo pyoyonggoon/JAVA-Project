@@ -1,0 +1,32 @@
+package org.opentutorials.javatutorials.eclipse; // 수업)) 메소드 : 입력
+
+public class MethodDemo5 {
+	public static void numbering(int inst,int limit) { // limit이라는 매개변수를 지정!(limit의 변수형식은 int로 지정)
+		int i = inst;                       			 // 매개변수 = parameter 
+		while (i < limit) {
+			System.out.println(i);
+			i++;
+		}
+		
+	} // numbering 이라는 메소드!
+	public static void main(String[] args) {
+		numbering(1,5); 
+	}
+}
+
+
+/*package org.opentutorials.javatutorials.eclipse;
+
+public class MethodDemo5 {
+	public static void numbering(int inst,int limit) { 
+	                                                 
+		while (inst < limit) {
+			System.out.println(inst);
+			inst++;
+		}
+		
+	} 
+	public static void main(String[] args) {
+		numbering(5,10); 
+	}
+} */
