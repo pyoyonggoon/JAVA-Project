@@ -1,0 +1,21 @@
+package org.opentutorials.javatutorials.scope;
+
+public class ScopeDemo2 {
+	static int i;// 클래스 변수를 준다.(전역번수)
+	
+	static void a() {
+		i = 0; // (지역변수)                     //ex) int i = 0;을 주면 0,1,2,3,4 정상적으로 나옴
+	}                                          // 이유는 a()의 메소드안에서의 i 변수라서 전역변수 i랑 무관.
+	public static void main(String[] args) {
+		for (i = 0; i < 5; i++) {
+			a();
+			System.out.println(i); 
+
+		}
+
+	}
+
+}//실행이 될 경우 무한루프가 발생한다.
+//i 를 클래스 변수에서 선언한 i를 사용하기 때문에 a() 메소드의 i = 0; 을 읽는다.
+
+//static void a()에 int i=0;을 주면 a메소드의 i는 for문의 i랑 무관하다
