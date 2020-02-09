@@ -1,0 +1,20 @@
+package org.opentutorials.javatutorials.scope;
+
+class C{
+	int v = 10; //전역변수
+	
+	void m() {
+		int v = 20; //을 만들어주면 20이 출력됨! 우선순위가 가까운 지역변수가 먼저다.
+		System.out.println(v);
+		System.out.println(this.v); //this는 객체에 대한 전역의 의미를 가지게됨. 전역변수 사용하고 싶을 경우
+	} // this를 사용하면 된다!
+}
+
+public class ScopeDemo7 {
+
+	public static void main(String[] args) {
+		C c1 = new C(); // 인스턴스 객체 생성! c1이라는! C 이름과 같게 만들어줘야 한다.
+		c1.m();
+	}
+
+}
