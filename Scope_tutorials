@@ -1,0 +1,17 @@
+package org.opentutorials.javatutorials.scope;
+
+public class ScopeDemo {
+
+	static void a() { //클래스 메소드
+		int i = 0; // 클래스 메소드 안에서만 사용할 수 있는 변수가 됨  << 유효범위 >>
+	}
+	public static void main(String[] args) { // 메인 메소드
+		for (int i = 0; i < 5; i++) {
+			a();// a로 넘어가서 i = 0을 만약  int i = 0 ;을 실행한다면 무한루프가 돌아가버림. 하지만 그렇지 않는다
+			System.out.println(i); //a로 넘어가지만 i 값은 바뀌지 않음 간섭x
+		}
+
+	}
+
+}
+                    
