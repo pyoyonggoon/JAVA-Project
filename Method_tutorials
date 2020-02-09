@@ -1,0 +1,14 @@
+package org.opentutorials.javatutorials.eclipse;
+
+public class MethodDemo1 {
+	public static void numbering() {     // 이 구간이 numbering에 대한 정의 ! 본문이라고 볼 수 있다. <<정의>>
+		int i = 0;
+		while(i<10) {
+			System.out.println(i);
+			i++;
+		}
+	}
+	public static void main(String[] args) {
+		numbering(); // main이라는 중괄호 안쪽에 실행을 기대하는것을 위치 ! numbering이라는 이름을 갖는 메소드를 호출 <<호출>>
+	}
+}
