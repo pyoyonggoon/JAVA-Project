@@ -1,0 +1,23 @@
+package org.opentutorials.javatutorials.scope;
+
+public class ScopeDemo6 {
+	static int i = 5;
+	
+	static void a() {
+		int i = 10;
+		b();
+	}
+	
+	static void b() {
+		System.out.println(i);
+	}
+	public static void main(String[] args) {
+		a();
+	}
+
+}
+// 전역변수 i = 5이고 a()안의 메소드의 지역변수 i = 10 이기 때문에 a를 호출해서 b를 호출하더라도 
+//전역변수의 i 를 사용하고, a()의 지역변수와는 관여 하지 않으므로 i 는 5를 출력!!!
+
+
+// 이러한 형태의 유효범위 스타일을 정적인 유효범위라고 한다. b를 호출해서 a를 호출하면 동적인 유효범위라고 불리는 형태의 프로그래밍 스타일!.
