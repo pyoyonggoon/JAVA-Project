@@ -1,0 +1,36 @@
+package org.opentutorials.javatutorials.constructor;
+
+class Calculator{ //  Calculator라는 클라스에 ! 같은 이름의 메소드를 만든다?
+	int left,right;
+	
+	public Calculator(int left, int right) { // Calculator라는 똑같은 이름의 메소드 선언! 아주아주 중요!
+		this.left = left;
+		this.right = right;
+	}
+	//생성자라고 한다 constructor 하는역할 : 클래스가 생성될때 자동으로 클래스와 똑같은 이름을 가진 생성자가 실행이 되도록
+	//약속 되어있다. 그리고 항상 먼저 실행되도록 약속되어 있다.
+	
+	public void sum() {
+		System.out.println(this.left + this.right);
+	}
+
+	public void avg() {
+		System.out.println((this.left + this.right) / 2 );
+	}
+
+
+}
+public class CalculatorDemo1 {
+
+	public static void main(String[] args) {
+		
+		Calculator c1 = new Calculator(10,20); // 객체를 생성할때 Calculator() 라고 지정하는것을 클래스가 아닌 생성자이다.
+		c1.sum();                              // 없으면 만들어 준다. 즉 인스턴스를 생성하는 자. new를 사용해서 c1의 인스턴스를 만들수 있다.
+		c1.avg();
+		
+		Calculator c2 = new Calculator(20,40);
+		c2.sum();
+		c2.avg();
+	}
+
+}
