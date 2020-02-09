@@ -1,0 +1,30 @@
+package org.opentutorials.javatutorials.eclipse; // 수업)) 복수의 리턴
+
+public class ReturnDemo3 {
+	
+	
+	public static String getMember1() {
+		return "최진혁";
+	}
+	
+	public static String getMember2() {
+		return "김이람";
+	}
+	
+	public static String getMember3() {
+		return "주우성";
+	}
+			
+	
+	
+	
+	
+	public static void main(String[] args) {
+		 System.out.println(getMember1());
+		 System.out.println(getMember2());
+		 System.out.println(getMember3());
+	}
+
+}
+
+
