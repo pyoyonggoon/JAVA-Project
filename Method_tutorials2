@@ -1,0 +1,20 @@
+package org.opentutorials.javatutorials.eclipse;
+
+public class MethodDemo3 {
+	
+	public static void numbering() {     // 정의를 해두면! 재활용, 코드량 적어짐, 유지보수 유리
+		int i = 0;
+		while(i<10) {
+			System.out.println(i);
+			i++;
+		}
+	}
+	public static void main(String[] args) { //
+		numbering();
+		numbering();
+		numbering();
+		numbering();
+		numbering();
+	}
+
+}
