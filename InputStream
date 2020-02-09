@@ -1,0 +1,23 @@
+package org.opentutorials.javatutorials.stream.example1;
+
+import java.io.*;
+
+public class FileInputStreamEx {
+	public static void main(String[] args) {
+		FileInputStream in = null; // 왜 null로 주고 이렇게 했냐
+		try {
+			in = new FileInputStream("c:\\windows\\System.ini");
+			// 파일과 연결된 바이트 스트림을 생성        < FileInputStream > 기억!!!
+			int c;
+			while((c = in.read()) != -1) { // while에 -1의 의미는 ? 찾아보기 지금!
+				System.out.print((char)c);
+			}
+		in.close();
+		}
+		catch(IOException e) {
+			System.out.println("입출력 오류");
+		}
+
+	}
+
+}
