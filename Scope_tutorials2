@@ -1,0 +1,13 @@
+package org.opentutorials.javatutorials.scope;
+
+public class ScopeDemo4 {
+	static void a() {
+		String  title =  "coding everybody";
+	}
+	public static void main(String[] args) {
+		a();
+		//System.out.println(title); 나는 title이 coding everybody를 프린트ln할줄알았다 하지만
+	}								// static void a()의 title과 main()와는 관여하지않기위해 title을 따로줘야한다.
+
+}
+  
