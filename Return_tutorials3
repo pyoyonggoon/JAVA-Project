@@ -1,0 +1,19 @@
+package org.opentutorials.javatutorials.eclipse; // 수업)) 복수의 리턴
+
+public class ReturnDemo4 {
+	
+	
+	public static String[] getMembers() {
+		String[] members = { "주우성","이호경","이우람" };
+		return members;
+	}
+	
+	
+	public static void main(String[] args) {
+		String[] members = getMembers();
+		 System.out.println(members);
+	}
+ 
+}// 배열 안에 멤버 3명을 담는다
+
+
