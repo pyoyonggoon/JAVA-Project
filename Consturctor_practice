@@ -1,0 +1,15 @@
+package org.opentutorials.javatutorials.example4;
+
+public class ConstructorDemo {
+	
+	// public ConstructorDemo(int param1){} <--에러가 발생한다.
+	
+	public static void main(String[] args) {
+		
+		ConstructorDemo c = new ConstructorDemo(); // 이게 호출이 가능한 것은 자바가 기본생성자를 만들기 때문이다.
+	}
+
+}
+
+
+// 이유는 ConstructorDemo는 어떠한 생성자도 갖지 않은 상태이다. 하지만 자바는 기본생성자를 만든다 (빈 내용으로)
