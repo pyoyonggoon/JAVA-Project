@@ -1,0 +1,247 @@
+package javaapplication1;
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Calculator cal = new Calculator("AWT 계산기");
+        cal.run();
+    }
+}
+
+
+class Calculator implements WindowListener {
+
+    private Frame f = null;
+    private TextField tf = null;
+    private Panel tp = null;
+    private ButtonPanel bp = null;
+
+    public Calculator(String fName) {
+        f = new Frame(fName);
+    }
+
+    public void run() {
+        System.out.println("_____________________ run !");
+        f.addWindowListener(this);
+        f.setLayout(new BorderLayout());
+        f.setBounds(300, 300, 200, 250);
+
+        tf = new TextField(20);
+        tf.setEditable(false);
+
+        tp = new Panel();
+        tp.setBounds(0, 30, 200, 80);
+        tp.add(tf);
+        tp.setVisible(true);
+        tp.show(true);
+
+        bp = new ButtonPanel(tf);
+        bp.setBounds(0, 70, 200, 180);
+        bp.setVisible(true);
+        bp.show(true);
+        f.add("North", tp);
+        f.add("Center", bp);
+        f.setVisible(true);
+    }
+
+    public void windowClosing(WindowEvent we) {
+        System.out.println("계산기 종료");
+        f.setVisible(false);
+        f.dispose();
+        System.exit(1);
+    }
+
+    public void windowOpened(WindowEvent we) {
+        System.out.println("계산기 시작");
+    }
+
+    public void windowClosed(WindowEvent we) {
+        System.out.println("계산기 종료될때");
+    }
+
+    public void windowIconified(WindowEvent we) {
+        System.out.println("계산기 최소화");
+    }
+
+    public void windowDeiconified(WindowEvent we) {
+        System.out.println("계산기 원래 크기로");
+    }
+
+    public void windowDeactivated(WindowEvent we) {
+        System.out.println(" 계산기에서 윈도우 비활성화");
+    }
+
+    public void windowActivated(WindowEvent we) {
+        System.out.println("계산기 활성화");
+    }
+}
+
+class ButtonPanel extends Panel {
+
+    private Button bt[] = new Button[16];
+    private ActionListener bal = null;
+
+    public ButtonPanel(TextField tf) {
+        super();
+        System.out.println("_____________________ ButtonPanel !");
+        bal = new ButtonActionListener(tf);
+        setLayout(new GridLayout(4, 4));
+
+        bt[0] = new Button("0");
+        bt[1] = new Button("1");
+        bt[2] = new Button("2");
+        bt[3] = new Button("3");
+        bt[4] = new Button("4");
+        bt[5] = new Button("5");
+        bt[6] = new Button("6");
+        bt[7] = new Button("7");
+        bt[8] = new Button("8");
+        bt[9] = new Button("9");
+        bt[10] = new Button("/");
+        bt[11] = new Button("*");
+        bt[12] = new Button("-");
+        bt[13] = new Button("+");
+        bt[14] = new Button("C");
+        bt[15] = new Button("=");
+
+
+        add(bt[7]);
+        add(bt[8]);
+        add(bt[9]);
+        add(bt[10]);
+
+        add(bt[4]);
+        add(bt[5]);
+        add(bt[6]);
+        add(bt[11]);
+
+        add(bt[1]);
+        add(bt[2]);
+        add(bt[3]);
+        add(bt[12]);
+
+        add(bt[0]);
+        add(bt[14]);
+        add(bt[15]);
+        add(bt[13]);
+        System.out.println("_end____________________ ButtonPanel !");
+        for (int index = 0; index < bt.length; index++) {
+            bt[index].addActionListener(bal);
+        }
+
+    }
+}
+
+class ButtonActionListener implements ActionListener {
+
+    private int iFlag = 0;
+    private String strOP = "null";
+    private TextField tf = null;
+
+    private String strAct = null;
+
+    public String tempstr = "";  // 숫자 저장하기 위한 임시 변수
+    private long tempval = 0;  //임시로 값을 저장하고 있는 변수( 계속 계산 값을 저장한다.)
+    public Boolean isinit = new Boolean(true); //연산자가 처음 인지?
+    public long tempval2 = 0;
+
+    public ButtonActionListener(TextField tf) {
+        System.out.println("_____________________ ButtonActionListener_생성자 !");
+        this.tf = tf;
+    }
+
+    public void actionPerformed(ActionEvent ae) {
+        // System.out.println("Button에 쓰인 글은 " + ae.getActionCommand());
+        strAct = ae.getActionCommand();
+
+        if (strAct.equals("/") || strAct.equals("*") || strAct.equals("-") || strAct.equals("+")) // ****연산자이면 참이면**
+        {
+            /// 계산하는 부분
+            if (isinit.booleanValue()) {
+                tempval = 0;
+            }
+            else if (strOP.equals("null")) {
+                strOP = strAct;
+                System.out.println("opt=" + strOP);
+            } else {
+                if (strOP.equals("+")) {
+                    tempval = tempval + tempval2;
+                } else if (strOP.equals("-")) {
+                    tempval = tempval - tempval2;
+                } else if (strOP.equals("*")) {
+                    tempval = tempval * tempval2;
+                } else if (strOP.equals("/")) {
+                    tempval = tempval / tempval2;
+                }
+                System.out.println("결과 값===" + tempval);
+                tf.setText(Long.toString(tempval));
+                strOP = strAct;
+            }
+            iFlag = 1;
+
+        }
+        else if (strAct.equals("=") || strAct.equals("C")) /** 결과 버튼을 누르면  **/
+        {
+            System.out.println("_____________________ ");
+
+            if (strAct.equals("C")) {
+                tf.setText("");
+                strOP = "null";
+                tempstr = "";
+                iFlag = 0;
+                isinit = Boolean.TRUE;
+            } else {
+                if (!strOP.equals("null")) {
+
+                    if (strOP.equals("+")) {
+                        tempval = tempval + tempval2;
+                    } else if (strOP.equals("-")) {
+                        tempval = tempval - tempval2;
+                    } else if (strOP.equals("*")) {
+                        tempval = tempval * tempval2;
+                    } else if (strOP.equals("/")) {
+                        tempval = tempval / tempval2;
+                    }
+                    System.out.println("결과 값===" + tempval);
+
+                    tf.setText(Long.toString(tempval));
+                    strOP = "null";
+
+
+                }
+
+            }
+
+        } // end__else if(strAct.equals("="))
+        else //숫자만 입력시
+        {
+             isinit = Boolean.FALSE;   //숫자를 입력하면 false
+            //텍스트 박에서 계속 출력
+            if (iFlag == 1) {
+                tf.setText("");
+                tf.setText(tf.getText() + strAct);
+                iFlag = 0;
+            } else {
+                tf.setText(tf.getText() + strAct);
+            }
+
+            //아래는 배열에 넣을 값을 변환하여 임시 변수에 저장한다.
+            if (strOP.equals("null")) {
+                tempstr = tf.getText();
+                tempval = Long.parseLong(tempstr);
+                System.out.println("_____________________ tempval=" + tempstr);
+                tempstr = "";
+            } else {
+                tempstr = tf.getText();
+                tempval2 = Long.parseLong(tempstr);
+                System.out.println("_____________________ tempval2=" + tempstr);
+                tempstr = "";
+            }
+
+
+        }
+
+    } 
+}
